@@ -1,0 +1,17 @@
+
+
+.button{
+    cursor: pointer;
+    padding:5px;
+    border-radius:5px;
+    border:1px solid black;
+    background-color:purple;
+    color:white;
+    cursor:pointer;
+}
+
+.button:disabled{
+    cursor: not-allowed;
+    background-color:rgb(187, 184, 184);
+    color:black;
+}

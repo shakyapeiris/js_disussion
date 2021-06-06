@@ -1,0 +1,30 @@
+.Box label, .Box input{
+    display: block;
+}
+
+.Box input{
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    outline: none;
+    margin-bottom:5px;
+    margin-top: 5px;
+}
+
+.Box input:disabled{
+    cursor: not-allowed;
+}
+
+.InputInvalid{
+    background-color: rgb(219, 132, 132);
+    border: 1px solid rgb(184, 36, 36);
+}
+
+.InputValid{
+    border: 1px solid black;
+    transition: 0.5s all ease-in-out;
+}
+
+.InputValid:focus{
+    border: 3px solid rgb(71, 128, 202);
+}

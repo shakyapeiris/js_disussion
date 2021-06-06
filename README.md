@@ -1,70 +1,120 @@
-# Getting Started with Create React App
+# CMBJS Discussion - Realtime Form Validation and Custom Hooks in React.Js.
+### This Repo contains all the documents used in the CMBJS discussion held on 6th June 2021 about real-time form validation and custom hooks in react.js :boom:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You can validate forms in threeways.
+  1. With the submission of form
+  2. After finishing typing
+  3. With every key stroke
 
-## Available Scripts
+In react js we can fetch data entered by user in two ways
+  1. Using onChange event.
+```javascript
+       function Form (){
+          const [name, setName] = useState('')
+          const changeNameHandler = (event) => {
+            setName(event.target.value)
+          }
+          return(
+            <div>
+              <input onChange = {changeNameHandler} />
+            </div>
+          )
+      }
+```
+  2. Using useRef hook
+```javascript
+       function Form (){
+          const name = useRef()
+          return(
+            <div>
+              <input ref = {name} />
+            </div>
+          )
+      }
+```
+<h3 style = "border-bottom:1px solid gray;">1. Checking the form validity with the submission of form</h3>
+  We can check the validity of the form submitted either by disabling button or focusing the invalid fields.
+  
+  * Disabling the button (onChange method)
+```javascript
+    const Form = () => {
+      const [name, setName] = useState()
+      const isNameValid = name.trim().length > 6
+      
+      const changeNameHandler = (event) => {
+        setName(event.target.value)
+      }
+      return(
+        <div>
+          <input onChange = {changeNameHandler} />
+          <button type = "submit" disabled = {!isNameValid}>Submit</button>
+        </div>
+      )
+    }
+```
+  * Focusing the invalid field
+```javascript
+    const Form = () => {
+      const name = useRef()
+      const isNameValid = name.current.value.trim().length > 6
+      
+      const submitFormHandler = (event) => {
+        event.preventDefault(); //Prevent unnecessary server refreshers
+        if (!isNameValid){
+          name.current.focus()
+          return // To break the flow
+        }
+      }
+      return(
+        <form onSubmit = {submitFormHandler}>
+          <input ref = {name} />
+          <button type = "submit">Submit</button>
+        </form>
+      )
+    }
+```
+#### Then how can we validate the input with is touched (After finishing typing)
 
-In the project directory, you can run:
+<h3 style = "border-bottom:1px solid gray;">2. Checking the form validity with is touched</h3>
+In here we can use onBlur event to catch it and store it in a state
 
-### `npm start`
+```javascript
+    const Form = () => {
+      const name = useRef()
+      const [isTouched, setIsTouched] = useState(false)
+      const isNameValid = name.current.value.trim().length > 6
+      
+      const submitFormHandler = (event) => {
+        event.preventDefault(); //Prevent unnecessary server refreshers
+        if (!isNameValid){
+          name.current.focus()
+          return // To break the flow
+        }
+      }
+      
+      const inputBlurHandler = () => {
+        setIstouched(true)
+      }
+      return(
+        <form onSubmit = {submitFormHandler}>
+          <input ref = {name} onBlur = {inputBlurHandler} />
+          <button type = "submit">Submit</button>
+        </form>
+      )
+    }
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<h3 style = "border-bottom:1px solid gray;">3. Cheking the form validity with every key stroke</h3>
+To do this task as in above code snippet we can simply check the validity of the data entered by reffering the state and adding a condition.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```javascript
+const isNameValid = name.current.value.trim().length > 6
+```
 
-### `npm test`
+## Finally validate all the actions and value changes we can use a boolean as follows
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```javascript
+const nameHasError = !isNameValid && isTouched
+```
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# That's it ThankYou. Just React

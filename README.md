@@ -16,7 +16,7 @@ In react js we can fetch data entered by user in two ways
           }
           return(
             <div>
-              <input onChange = {changeNameHandler} />
+              <input onChange={changeNameHandler} />
             </div>
           )
       }
@@ -24,10 +24,10 @@ In react js we can fetch data entered by user in two ways
   2. Using useRef hook
 ```javascript
        function Form (){
-          const name = useRef()
+          const name=useRef()
           return(
             <div>
-              <input ref = {name} />
+              <input ref={name} />
             </div>
           )
       }
@@ -41,13 +41,13 @@ In react js we can fetch data entered by user in two ways
       const [name, setName] = useState()
       const isNameValid = name.trim().length > 6
       
-      const changeNameHandler = (event) => {
+      const changeNameHandler=(event) => {
         setName(event.target.value)
       }
       return(
         <div>
           <input onChange = {changeNameHandler} />
-          <button type = "submit" disabled = {!isNameValid}>Submit</button>
+          <button type="submit" disabled={!isNameValid}>Submit</button>
         </div>
       )
     }
@@ -67,8 +67,8 @@ In react js we can fetch data entered by user in two ways
       }
       return(
         <form onSubmit = {submitFormHandler}>
-          <input ref = {name} />
-          <button type = "submit">Submit</button>
+          <input ref={name} />
+          <button type="submit">Submit</button>
         </form>
       )
     }
@@ -96,9 +96,9 @@ In here we can use onBlur event to catch it and store it in a state
         setIstouched(true)
       }
       return(
-        <form onSubmit = {submitFormHandler}>
-          <input ref = {name} onBlur = {inputBlurHandler} />
-          <button type = "submit">Submit</button>
+        <form onSubmit={submitFormHandler}>
+          <input ref={name} onBlur={inputBlurHandler} />
+          <button type="submit">Submit</button>
         </form>
       )
     }

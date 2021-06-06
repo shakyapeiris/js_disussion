@@ -17,8 +17,8 @@ const Input = React.forwardRef((props, ref) => {
 
     return(
         <div className = {classes.Box}>
-            <label htmlFor = {props.id}>{props.label}</label>
-            <input disabled = {props.disabled || null} className = {props.inValid ? classes.InputInvalid : classes.InputValid} type = {props.type || "text"} onChange = {props.onChange || null} value = {props.value} onBlur = {props.onBlur} ref = {inputRef} />
+            <label htmlFor={props.id}>{props.label}</label>
+            <input disabled={props.disabled || null} className={props.inValid ? classes.InputInvalid : classes.InputValid} type={props.type || "text"} onChange={props.onChange || null} value={props.value} onBlur={props.onBlur} ref={inputRef} />
         </div> 
     )
 })
